@@ -7,6 +7,7 @@ import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wypedriver/apps/controllers/auth_controller.dart';
 import 'package:wypedriver/apps/services/firebase_service.dart';
+import 'package:wypedriver/apps/services/location_services.dart';
 import 'package:wypedriver/apps/utils/utils.dart';
 import 'package:wypedriver/common_widgets/primary_button.dart';
 import 'package:wypedriver/common_widgets/textfiled.dart';
@@ -82,15 +83,20 @@ class AuthView extends StatelessWidget {
                   () => PrimaryButton(
                     text: authController.isLoading.value ? 'loading' : 'Log in',
                     onTap: () async {
-                      authController.isLoading.value = true;
-                      try {
-                        await firebaseService.login(
-                            context, email.text.trim(), password.text.trim());
-                      } catch (e) {
+                      LocationService().determinePosition();
+                      if (email.text.trim().isNotEmpty) {
+                        authController.isLoading.value = true;
+                        try {
+                          await firebaseService.login(
+                              context, email.text.trim(), password.text.trim());
+                        } catch (e) {
+                          Get.snackbar('error', 'Invaild Credentials');
+                        }
+
+                        authController.isLoading.value = false;
+                      } else {
                         Get.snackbar('error', 'Invaild Credentials');
                       }
-
-                      authController.isLoading.value = false;
                     },
                   ),
                 ),

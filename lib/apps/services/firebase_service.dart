@@ -32,10 +32,18 @@ class FirebaseService {
       final driverId = driverData?['driverId']; // Contains all driver fields
       print(driverData);
       print(driverId); // Access the document ID
-
-      // Successful login - navigate to a driver-specific page using driverId
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomeView(
+                  userData: driverId,
+                )),
+        (route) => false,
+      ); // Successful login - navigate to a driver-specific page using driverId
     } on FirebaseAuthException catch (e) {
-      // Handle Authentication errors
+      // Handle Authentication errors'
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Login failed. Please try again.')));
       print('Authentication Error: $e');
     } catch (e) {
       // Handle other errors (e.g. Firestore query failure)

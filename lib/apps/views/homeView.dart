@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wypedriver/apps/services/location_services.dart';
 import 'package:wypedriver/apps/utils/utils.dart';
 import 'package:wypedriver/common_widgets/common_button.dart';
 
@@ -65,7 +66,9 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 CommonButton(
                   text: 'Upcoming',
-                  onTap: () {},
+                  onTap: () async {
+                    LocationService().getCurrentLocation();
+                  },
                 ),
               ],
             ),

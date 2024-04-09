@@ -43,6 +43,10 @@ dependencies:
   firebase_auth: ^4.17.8
   firebase_core: ^2.27.0
   cloud_firestore: ^4.15.8
+  location: ^6.0.1
+  geolocator: ^11.0.0
+  geocoding: ^3.0.0
+  # geodesy: ^0.10.2
   # google_fonts:
 
 
